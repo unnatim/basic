@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/to-do.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/v1/to-do",
+        "dest": "/api/to-do.js"
+      }
+    ]
+  }
