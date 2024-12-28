@@ -9,7 +9,7 @@ const ToDoSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-});
+}, { collection: 'todo' });
 
 const ToDo = mongoose.model('ToDo', ToDoSchema);
 
