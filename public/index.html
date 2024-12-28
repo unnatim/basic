@@ -64,7 +64,8 @@
             const response = await fetch('/v1/to-do', {
                 method: 'GET',
                 headers: {
-                    'X-Client-IP': '123.456.789.0'  // Set your custom IP address here
+                    'X-Client-IP': '123.456.789.0',
+                    'X-Forwarded-For': '10.221.1.5',
                 }
             });
 
