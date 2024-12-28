@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .ip-address {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>To-Do API</h1>
+    <button id="get-todo-btn">Get To-Do Message</button>
+    <div id="result" class="message"></div>
+    <div id="ip-address" class="ip-address"></div>
+</div>
+
+<script>
+    document.getElementById('get-todo-btn').addEventListener('click', async () => {
+        try {
+            const response = await fetch('/v1/to-do', {
+                method: 'GET',
+                headers: {
+                    'X-Client-IP': '123.456.789.0'  // Set your custom IP address here
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+
+            const data = await response.json();
+
+            // Display the message and IP address returned from the API
+            document.getElementById('result').textContent = data.message;
+            document.getElementById('ip-address').textContent = `Client IP: ${data.ipAddressFromHeader}`;
+        } catch (error) {
+            // Handle error in case of failure
+            document.getElementById('result').innerHTML = `<span class="error">Error: ${error.message}</span>`;
+        }
+    });
+</script>
+
+</body>
+</html>
