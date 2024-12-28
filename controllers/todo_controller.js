@@ -4,12 +4,14 @@ const ToDo = require('../models/todo');  // Assuming you have a ToDo model
 const get = async (req, res) => {
   try {
     const todos = await ToDo.find();
-    const ipAddressFromHeader = req.headers?.['x-client-ip'] || "IP not set";
-    const ipAddressGiven = req.headers?.['x-forwarded-for'] || "Nothing given";
+    const ipClientAddressGiven = req.headers?.['x-client-ip'] || "IP not set";
+    const xForwardedFor = req.headers['x-forwarded-for'];
+    const ipForwardedAddressGiven = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
+
     res.status(200).json({
         todos,
-        ipAddressFromHeader: ipAddressFromHeader,
-        ipAddressGiven: ipAddressGiven,
+        ipClientAddressGiven: ipClientAddressGiven,
+        ipForwardedAddressGiven: ipForwardedAddressGiven,
       });
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
