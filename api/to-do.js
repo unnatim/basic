@@ -9,7 +9,7 @@ app.get('/v1/to-do', (req, res) => {
   res.status(200).json({ message: 'To-do items listed here' });
 });
 
-// Export your express app as a serverless function
+// Export your express app as a serverless functionn
 module.exports = (req, res) => {
   app(req, res);
 };
