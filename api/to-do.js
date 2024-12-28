@@ -13,7 +13,7 @@ app.get('/v1/to-do', (req, res) => {
     // Send the response with the IP address in the header
     res.status(200).json({
       message: 'To-do items listed here',
-      ipAddressGiven: ipAddressGiven,
+      ipAddressGiven: ipAddressGiven || "Nothing given",
       clientIpCaptured: ipAddress,
     });
   });
