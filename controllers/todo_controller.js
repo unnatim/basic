@@ -6,6 +6,7 @@ const get = async (req, res) => {
     const todos = await ToDo.find();
     const ipClientAddressGiven = req.headers?.['x-client-ip'] || "IP not set";
     const xForwardedFor = req.headers['x-forwarded-for'];
+    console.log("ipForwardedAddressGiven---",xForwardedFor)
     const ipForwardedAddressGiven = xForwardedFor ? xForwardedFor.split(',')[0] : req.connection.remoteAddress;
 
     res.status(200).json({
