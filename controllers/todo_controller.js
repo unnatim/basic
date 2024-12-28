@@ -4,7 +4,13 @@ const ToDo = require('../models/todo');  // Assuming you have a ToDo model
 const get = async (req, res) => {
   try {
     const todos = await ToDo.find();
-    res.status(200).json(todos);
+    const ipAddressFromHeader = req.headers?.['x-client-ip'] || "IP not set";
+    const ipAddressGiven = req.headers?.['x-forwarded-for'] || "Nothing given";
+    res.status(200).json({
+        todos,
+        ipAddressFromHeader: ipAddressFromHeader,
+        ipAddressGiven: ipAddressGiven,
+      });
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }
